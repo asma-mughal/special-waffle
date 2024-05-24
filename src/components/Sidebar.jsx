@@ -17,21 +17,6 @@ const Sidebar = () => {
     }
   }
 
-  const fetchBoards = () => {
-    fetch(`${API_URL}/boards/list/${userDetails?.uid}`)
- .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setBoards(data?.boards);
-      })
-      .catch((error) => {
-        console.error("There was a problem fetching the boards:", error);
-      });
-  };
     const CreateBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
         const [boardName, setBoardName] = useState('');
     
@@ -57,7 +42,7 @@ const Sidebar = () => {
                 .then(data => {
                 setSuccessMessage('Board created successfully!');
                 console.log('Board created successfully:', data);
-               fetchBoards()
+              
             })
             .catch(error => {
                 console.error('There was a problem creating the board:', error);
