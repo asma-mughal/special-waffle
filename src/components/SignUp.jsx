@@ -8,7 +8,9 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const [fname, setFname] = useState("");
     const [lname, setLname] = useState("");
-    const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
+  
+  const [successMessage, setSuccessMessage] = useState('');
     const [registerSuccess, setRegisterSuccess] = useState();
     const navigate = useNavigate()
     const handleRegister = async (e) => {
@@ -33,7 +35,8 @@ const SignUp = () => {
           const user = auth.currentUser;
             if (user) {
               
-            setRegisterSuccess(true)
+              setRegisterSuccess(true)
+              
             await setDoc(doc(db, "Users", user.uid), {
               email: user.email,
               firstName: fname,
@@ -42,8 +45,7 @@ const SignUp = () => {
             });
               
           }
-          console.log("User Registered Successfully!!");
-          navigate('/login'); // Use navigate function to redirect
+          
         } catch (error) {
           console.log(error.message);
           setError(error.message);
@@ -52,7 +54,9 @@ const SignUp = () => {
     useEffect(() => {
         if (registerSuccess) {
          
-        navigate("/login")   
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 2000);
         }
     },[registerSuccess])
     return (
@@ -62,6 +66,11 @@ const SignUp = () => {
       {error && (
         <div className="mb-4 text-red-600 text-center">
           {error}
+        </div>
+        )}
+         {registerSuccess && (
+        <div className="p-4 mt-4 mb-4 text-green-800 bg-green-200 rounded">
+         User Registered successfully
         </div>
       )}
 
