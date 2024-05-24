@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../constants";
 import BoardTask from "./BoardTask";
 import { FaTrash } from "react-icons/fa";
-const DisplayBoard = ({ userId }) => {
+const DisplayBoard = ({ userId,successBoardMessage }) => {
   const [boards, setBoards] = useState([]);
   const [boardSuccessMessages, setBoardSuccessMessages] = useState({});
   const [tasks, setTasks] = useState({});
@@ -11,7 +11,7 @@ const DisplayBoard = ({ userId }) => {
   const [delayedTasks, setDelayedTasks] = useState({});
   useEffect(() => {
     fetchBoards();
-  }, [userId, tasks]);
+  }, [userId, tasks,successBoardMessage]);
 
   useEffect(() => {
     fetchTasksForAllBoards();

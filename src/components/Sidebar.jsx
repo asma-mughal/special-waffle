@@ -3,9 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import CustomButton from './CustomButton';
 import { auth } from "./firebase";
 import { API_URL } from '../constants';
-const Sidebar = () => {
+const Sidebar = ({successBoardMessage,setSuccessBoardMessage}) => {
     const [userDetails, setUserDetails] = useState()
-    const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate()
   async function handleLogout() {
     try {
@@ -40,7 +39,7 @@ const Sidebar = () => {
                 return response.json();
             })
                 .then(data => {
-                setSuccessMessage('Board created successfully!');
+                setSuccessBoardMessage('Board created successfully!');
                 console.log('Board created successfully:', data);
               
             })
@@ -50,7 +49,7 @@ const Sidebar = () => {
             setBoardName('');
             onClose();
             setTimeout(() => {
-                setSuccessMessage('');
+                setSuccessBoardMessage('');
             }, 3000);
         };
     
@@ -131,9 +130,9 @@ const Sidebar = () => {
         {userDetails ? (
                         <div className="flex flex-col items-center space-y-4">
                              <div>
-          {successMessage && (
+          {successBoardMessage && (
               <div className="p-4 mt-4 text-green-800 bg-green-200 rounded">
-                  {successMessage}
+                  {successBoardMessage}
               </div>
           )}
       </div>
